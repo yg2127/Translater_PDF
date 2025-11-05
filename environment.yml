@@ -1,0 +1,35 @@
+name: paper-translator  # 1. Conda 가상 환경의 이름
+
+channels:                # 2. 라이브러리를 다운로드할 채널 (순서 중요)
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:            # 3. 설치할 라이브러리 목록
+  # --- Conda로 설치할 핵심 패키지 (GPU 및 AI 엔진) ---
+  - python=3.10          # 파이썬 버전 고정
+  - pytorch              # PyTorch 본체
+  - torchvision
+  - torchaudio
+
+  # --- Pip으로 설치할 나머지 패키지 ---
+  - pip
+  - pip:
+      # AI 모델
+      - ultralytics        # YOLOv11
+      - transformers       # Helsinki-NLP 모델 로드용
+      - sentencepiece      # Helsinki-NLP 토크나이저
+
+      # PDF/이미지/OCR 처리
+      - pymupdf            # PyMuPDF (PDF 텍스트/좌표 추출)
+      - pdf2image          # PDF -> 이미지 변환
+      - pillow             # 이미지 자르기(crop)
+      - easyocr            # 이미지 안 텍스트 읽기
+
+      # API 서버
+      - fastapi            # 웹 API 프레임워크
+      - uvicorn[standard]  # API 서버 실행기
+      - python-multipart   # 파일 업로드 처리
+
+      # PDF 생성
+      - reportlab          # 최종 PDF 조립
